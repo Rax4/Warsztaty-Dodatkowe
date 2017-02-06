@@ -1,13 +1,12 @@
 <?php
 
-require 'class/User.php';
+require '../class/User.php';
 
-$host = '';
-$db = '';
-$user = '';
-$password = '';
+$host = 'localhost';
+$db = 'paczkolab';
+$user = 'root';
+$password = 'coderslab';
 
-//$connection = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $password);
-//FAKE TO DELETE NOW!!!!!!!!!!!///
-$connection = 'fake';
+$connection = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $password);
+
 User::$connection = $connection;
