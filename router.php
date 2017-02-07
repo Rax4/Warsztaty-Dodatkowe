@@ -23,11 +23,25 @@ else
     die();
 }
 
+if (isset($arrayRequest[3]))
+{
+    $requestParam = $arrayRequest[3];
+    var_dump($requestParam);
+}
+else
+{
+    echo 'Nie podałeś parametru';
+}
+
+
+
 if ($_SERVER['REQUEST_METHOD'] == 'GET') 
 {
     if ($requestClass=='user') 
     {
-        echo 'Mamy Usera!';
+        $oUser = new User();
+        $userData = $oUser->loadFromDB(2);
+        var_dump($userData);
     }
     else
     {

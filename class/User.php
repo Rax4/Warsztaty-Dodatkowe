@@ -122,7 +122,7 @@ class User
         $result = self::$connection->query($sql);
         if($result == true && $result->rowCount() == 1)
         {
-            $row = $result->fetch();
+            $row = $result->fetch(PDO::FETCH_ASSOC);
             $this->id = $row['id'];
             $this->name = $row['name'];
             $this->surname = $row['surname'];
