@@ -1,6 +1,6 @@
 <?php
 
-require '../class/User.php';
+require 'class/User.php';
 
 $host = 'localhost';
 $db = 'paczkolab';

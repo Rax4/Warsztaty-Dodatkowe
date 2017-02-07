@@ -102,22 +102,20 @@ class Address
         return false;
     }
     
-    static public function loadFromDB($id)
+    public function loadFromDB($id)
     {
         $sql = "SELECT * FROM Addresses WHERE id=$id";
         $result = self::$connection->query($sql);
         if($result == true && $result->rowCount() == 1)
         {
-            $row = $result->fetch();
-            $loadedAddress = new Address();
-            $loadedAddress->id = $row['id'];
-            $loadedAddress->city = $row['city'];
-            $loadedAddress->code = $row['code'];
-            $loadedAddress->street = $row['street'];
-            $loadedAddress->number = $row['number'];
-            return $loadedAddress;
+            $this->id = $row['id'];
+            $this->city = $row['city'];
+            $this->code = $row['code'];
+            $this->street = $row['street'];
+            $this->number = $row['number'];
+            return $row;
         }
-        return null;
+        return false;
     }
 
     static public function loadAllFromDB()

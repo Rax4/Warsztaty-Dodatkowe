@@ -83,20 +83,19 @@ class Package
         return false;
     }
     
-    static public function loadFromDB($id)
+    public function loadFromDB($id)
     {
         $sql = "SELECT * FROM Packages WHERE id=$id";
         $result = self::$connection->query($sql);
         if($result == true && $result->rowCount() == 1)
         {
-            $row = $result->fetch();
-            $loadedPackage = new Package();
-            $loadedPackage->id = $row['id'];
-            $loadedPackage->userId = $row['user_id'];
-            $loadedPackage->size = $row['size'];
-            return $loadedPackage;
+            $this = new Package();
+            $this->id = $row['id'];
+            $this->userId = $row['user_id'];
+            $this->size = $row['size'];
+            return $row;
         }
-        return null;
+        return false;
     }
 
     static public function loadAllFromDB()

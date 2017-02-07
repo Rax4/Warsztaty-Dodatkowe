@@ -72,20 +72,20 @@ class Size
         return false;
     }
     
-    static public function loadFromDB($id)
+    public function loadFromDB($id)
     {
         $sql = "SELECT * FROM Sizes WHERE id=$id";
         $result = self::$connection->query($sql);
         if($result == true && $result->rowCount() == 1)
         {
-            $row = $result->fetch();
-            $loadedSize = new Size();
-            $loadedSize->id = $row['id'];
-            $loadedSize->symbol = $row['symbol'];
-            $loadedSize->price = $row['price'];
-            return $loadedSize;
+            $this = new Size();
+            $this->id = $row['id'];
+            $this->symbol = $row['symbol'];
+            $this->price = $row['price'];
+            
+            return $row;
         }
-        return null;
+        return false;
     }
 
     static public function loadAllFromDB()

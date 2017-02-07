@@ -6,7 +6,7 @@
 class User
 {
     private $id;
-    private $address;
+    private $addressId;
     private $name;
     private $surname;
     private $credits;
@@ -17,16 +17,16 @@ class User
     public function __construct() 
     {
         $this->id = -1;
-        $this->address = '';
+        $this->addressId = null;
         $this->name = '';
         $this->surname = '';
         $this->credits = null;
         $this->hashedPassword = '';
     }
     
-    public function setAddress($address)
+    public function setAddressId($address)
     {
-        $this->address = $address;
+        $this->addressId = $address;
         return true;
     }
     
@@ -55,9 +55,9 @@ class User
         return true;
     }
     
-    public function getAddress()
+    public function getAddressId()
     {
-        return $this->address;
+        return $this->addressId;
     }
     
     public function getName()
@@ -89,10 +89,10 @@ class User
     {
         if($this->id == -1)
         {
-            $sql = "INSERT INTO Users(address, name, surname, credits, hashed_password)
+            $sql = "INSERT INTO Users(address_id, name, surname, credits, hashed_password)
             VALUES (?,?,?,?,?)";
             $stm = self::$connection->prepare($sql);
-            $result = $stm->execute([$this->address,  $this->name, $this->surname, $this->credits, $this->hashedPassword]);
+            $result = $stm->execute([$this->addressId,  $this->name, $this->surname, $this->credits, $this->hashedPassword]);
             if($result == true)
             {
                 $this->id = self::$connection->lastInsertId();
@@ -105,9 +105,9 @@ class User
     {
         if($this->id != -1) 
         {
-            $sql = "UPDATE Users SET address=?, name=?,surname=?,credits=?,hashed_password=?WHERE id=?";
+            $sql = "UPDATE Users SET address_id=?, name=?,surname=?,credits=?,hashed_password=?WHERE id=?";
             $stm = self::$connection->prepare($sql);
-            $result = $stm->execute([$this->address,  $this->name, $this->surname, $this->credits, $this->hashedPassword,  $this->id]);
+            $result = $stm->execute([$this->addressId,  $this->name, $this->surname, $this->credits, $this->hashedPassword,  $this->id]);
             if($result == true)
             {
                 return true;
@@ -116,23 +116,23 @@ class User
         return false;
     }
     
-    static public function loadFromDB($id)
+    public function loadFromDB($id)
     {
         $sql = "SELECT * FROM Users WHERE id=$id";
         $result = self::$connection->query($sql);
         if($result == true && $result->rowCount() == 1)
         {
             $row = $result->fetch();
-            $loadedUser = new User();
-            $loadedUser->id = $row['id'];
-            $loadedUser->name = $row['name'];
-            $loadedUser->surname = $row['surname'];
-            $loadedUser->credits = $row['credits'];
-            $loadedUser->address = $row['address'];
-            $loadedUser->hashedPassword = $row['hashed_password'];
-            return $loadedUser;
+            $this->id = $row['id'];
+            $this->name = $row['name'];
+            $this->surname = $row['surname'];
+            $this->credits = $row['credits'];
+            $this->addressId = $row['address_id'];
+            $this->hashedPassword = $row['hashed_password'];
+            //Not true because usage on view (Also outcome will always be true)
+            return $row;
         }
-        return null;
+        return false;
     }
 
     static public function loadAllFromDB()
@@ -149,7 +149,7 @@ class User
                 $loadedUser->name = $row['name'];
                 $loadedUser->surname = $row['surname'];
                 $loadedUser->credits = $row['credits'];
-                $loadedUser->address = $row['address'];
+                $loadedUser->addressId = $row['address_id'];
                 $loadedUser->hashedPassword = $row['hashed_password'];
                 $ret[] = $loadedUser;
             }
