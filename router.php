@@ -52,8 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
         }
         else 
         {
-            $oUser = new User();
-            $oUser = $oUser->loadAllFromDB();
+            $oUser = User::loadAllFromDB();
+            var_dump($oUser);
+            $oUser = User::showAllFromDB();
             var_dump($oUser);
         }
     }

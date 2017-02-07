@@ -157,6 +157,24 @@ class User
         return $ret;
     }
     
+
+    static public function showAllFromDB()
+    {
+        $sql = "SELECT * FROM Users";
+        $row = [];
+        $result = self::$connection->query($sql);
+        if($result == true && $result->rowCount() != 0)
+        {
+            $n=0;
+            foreach($result as $key => $value)
+            {
+                $row[$key] = $value;
+                $n++;
+            }
+        }
+        return $row;
+    }
+    
     public function delete()
     {
         if($this->id != -1)
