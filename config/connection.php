@@ -7,6 +7,6 @@ $db = 'paczkolab';
 $user = 'root';
 $password = 'coderslab';
 
-$connection = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $password);
+$connection = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $password, [PDO::FETCH_ASSOC]);
 
 User::$connection = $connection;

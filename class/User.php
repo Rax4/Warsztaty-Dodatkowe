@@ -165,11 +165,9 @@ class User
         $result = self::$connection->query($sql);
         if($result == true && $result->rowCount() != 0)
         {
-            $n=0;
             foreach($result as $key => $value)
             {
                 $row[$key] = $value;
-                $n++;
             }
         }
         return $row;

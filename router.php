@@ -42,20 +42,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
         {
             $oUser = new User();
             $userData = $oUser->loadFromDB($requestParam);
-            var_dump($userData);
+            print_r($userData);
         }
         else if(isset($requestParam) && $requestParam=='0')
         {
             $oUser = new User();
             $userData = $oUser->loadFromDB($requestParam);
-            var_dump($userData);
+            print_r($userData);
         }
         else 
         {
-            $oUser = User::loadAllFromDB();
-            var_dump($oUser);
             $oUser = User::showAllFromDB();
-            var_dump($oUser);
+            print_r(json_encode($oUser));
         }
     }
     else
