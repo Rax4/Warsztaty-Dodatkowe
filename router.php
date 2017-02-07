@@ -26,7 +26,6 @@ else
 if (isset($arrayRequest[3]))
 {
     $requestParam = $arrayRequest[3];
-    var_dump($requestParam);
 }
 else
 {
@@ -39,9 +38,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
 {
     if ($requestClass=='user') 
     {
-        $oUser = new User();
-        $userData = $oUser->loadFromDB(2);
-        var_dump($userData);
+        if (isset($requestParam) && $requestParam>0) 
+        {
+            $oUser = new User();
+            $userData = $oUser->loadFromDB($requestParam);
+            var_dump($userData);
+        }
+        else if(isset($requestParam) && $requestParam=='0')
+        {
+            $oUser = new User();
+            $userData = $oUser->loadFromDB($requestParam);
+            var_dump($userData);
+        }
+        else 
+        {
+            $oUser = new User();
+            $oUser = $oUser->loadAllFromDB();
+            var_dump($oUser);
+        }
     }
     else
     {
