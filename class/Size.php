@@ -1,11 +1,10 @@
 <?php
 
-class Size 
+class Size extends DataBase
 {    
     private $id;
     private $symbol;
     private $price;
-    static public $connection;
 
     public function __construct() 
     {
@@ -78,7 +77,7 @@ class Size
         $result = self::$connection->query($sql);
         if($result == true && $result->rowCount() == 1)
         {
-            $this = new Size();
+            $row = $result->fetch(PDO::FETCH_ASSOC);
             $this->id = $row['id'];
             $this->symbol = $row['symbol'];
             $this->price = $row['price'];
@@ -88,7 +87,7 @@ class Size
         return false;
     }
 
-    static public function loadAllFromDB()
+    static public function loadAllObjectsFromDB()
     {
         $sql = "SELECT * FROM Sizes";
         $ret = [];
@@ -105,6 +104,22 @@ class Size
             }
         }
         return $ret;
+    }
+    
+        
+    static public function loadAllFromDB()
+    {
+        $sql = "SELECT * FROM Sizes";
+        $row = [];
+        $result = self::$connection->query($sql);
+        if($result == true && $result->rowCount() != 0)
+        {
+            foreach($result as $key => $value)
+            {
+                $row[$key] = $value;
+            }
+        }
+        return $row;
     }
     
     public function delete()

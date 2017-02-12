@@ -1,17 +1,12 @@
 <?php
-/**
- * Description of Address
- *
- * @author piotr
- */
-class Address
+
+class Address extends DataBase
 {
     private $id;
     private $city;
     private $code;
     private $street;
     private $number;
-    static public $connection;
 
     public function __construct() 
     {
@@ -34,7 +29,7 @@ class Address
         return true;
     }
     
-    public function setstreet($street)
+    public function setStreet($street)
     {
         $this->street = $street;
         return true;
@@ -108,6 +103,7 @@ class Address
         $result = self::$connection->query($sql);
         if($result == true && $result->rowCount() == 1)
         {
+            $row = $result->fetch(PDO::FETCH_ASSOC);
             $this->id = $row['id'];
             $this->city = $row['city'];
             $this->code = $row['code'];
@@ -118,7 +114,7 @@ class Address
         return false;
     }
 
-    static public function loadAllFromDB()
+    static public function loadAllObjectFromDB()
     {
         $sql = "SELECT * FROM Addresses";
         $ret = [];
@@ -137,6 +133,21 @@ class Address
             }
         }
         return $ret;
+    }
+    
+    static public function loadAllFromDB()
+    {
+        $sql = "SELECT * FROM Addresses";
+        $row = [];
+        $result = self::$connection->query($sql);
+        if($result == true && $result->rowCount() != 0)
+        {
+            foreach($result as $key => $value)
+            {
+                $row[$key] = $value;
+            }
+        }
+        return $row;
     }
     
     public function delete()

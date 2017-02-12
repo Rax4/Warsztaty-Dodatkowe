@@ -3,7 +3,7 @@
  * Class represents one user
  * 
  */
-class User
+class User extends DataBase
 {
     private $id;
     private $addressId;
@@ -11,7 +11,6 @@ class User
     private $surname;
     private $credits;
     private $hashedPassword;
-    static public $connection;
 
 
     public function __construct() 
@@ -135,7 +134,7 @@ class User
         return false;
     }
 
-    static public function loadAllFromDB()
+    static public function loadAllObjectsFromDB()
     {
         $sql = "SELECT * FROM Users";
         $ret = [];
@@ -158,7 +157,7 @@ class User
     }
     
 
-    static public function showAllFromDB()
+    static public function loadAllFromDB()
     {
         $sql = "SELECT * FROM Users";
         $row = [];

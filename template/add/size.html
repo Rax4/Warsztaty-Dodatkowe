@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Lista użytkowników</title>
+        <title>Dodawanie nowego rozmiaru skrzynki</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="../css/style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script type="text/javascript" src="../js/viewUser.js"></script>
+        <script type="text/javascript" src="../js/addSize.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Play:400,700&amp;subset=latin-ext" rel="stylesheet">
     </head>
     <body>
@@ -14,20 +14,16 @@
             <h1><a href="../../index.html">Paczkolab</a></h1>
             <hr>
             <div class="heading-box">
-                <h2>Lista użytkowników</h2>
+                <h2>Dodaj nowy rozmiar paczki</h2>
             </div>
             <div class="menu-box">
-                <table id="view-user">
-                    <tr>
-                        <th>Id</th>
-                        <th>Adres</th>
-                        <th>Imię</th>
-                        <th>Nazwisko</th>
-                        <th>Ilość kredytów</th>
-                        <th>Akcja</th>
-                    </tr>
-                    <!-- Load data from database using ajax -->
-                </table>
+                <form id="add-size">
+                    <label for="size">Rozmiar</label>
+                    <input type="text" name="size" id="size" required><br>
+                    <label for="price">Cena</label>
+                    <input type="text" name="price" id="price" required><br>
+                    <input type="submit" value="Dodaj">
+                </form>
             </div>
         </div>
     </body>

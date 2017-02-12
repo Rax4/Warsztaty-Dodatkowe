@@ -11,12 +11,11 @@
  *
  * @author piotr
  */
-class Package
+class Package extends DataBase
 {
     private $id;
     private $userId;
     private $size;
-    static public $connection;
 
     public function __construct() 
     {
@@ -89,7 +88,7 @@ class Package
         $result = self::$connection->query($sql);
         if($result == true && $result->rowCount() == 1)
         {
-            $this = new Package();
+            $row = $result->fetch(PDO::FETCH_ASSOC);
             $this->id = $row['id'];
             $this->userId = $row['user_id'];
             $this->size = $row['size'];
@@ -98,7 +97,7 @@ class Package
         return false;
     }
 
-    static public function loadAllFromDB()
+    static public function loadAllObjectsFromDB()
     {
         $sql = "SELECT * FROM Packages";
         $ret = [];
@@ -115,6 +114,22 @@ class Package
             }
         }
         return $ret;
+    }
+    
+        
+    static public function loadAllFromDB()
+    {
+        $sql = "SELECT * FROM Packages";
+        $row = [];
+        $result = self::$connection->query($sql);
+        if($result == true && $result->rowCount() != 0)
+        {
+            foreach($result as $key => $value)
+            {
+                $row[$key] = $value;
+            }
+        }
+        return $row;
     }
     
     public function delete()
